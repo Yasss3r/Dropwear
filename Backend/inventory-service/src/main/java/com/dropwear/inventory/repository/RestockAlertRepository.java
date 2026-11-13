@@ -15,4 +15,10 @@ import com.dropwear.inventory.domain.*;
 public interface RestockAlertRepository extends JpaRepository<RestockAlert, UUID> {
 
     List<RestockAlert> findByStatus(AlertStatus status);
+
+    List<RestockAlert> findBySupplierId(UUID supplierId);
+
+    List<RestockAlert> findBySupplierIdAndStatus(UUID supplierId, AlertStatus status);
+
+    Optional<RestockAlert> findBySkuAndStatus(String sku, AlertStatus status);
 }
