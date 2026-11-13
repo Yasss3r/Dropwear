@@ -1,14 +1,11 @@
 package com.dropwear.inventory.scheduling;
 
-import java.time.Instant;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import com.dropwear.inventory.domain.ReservationStatus;
-import com.dropwear.inventory.repository.StockReservationRepository;
+import com.dropwear.inventory.service.InventoryService;
 
 /**
  * Verrouillage temporaire : libère chaque minute les réservations ACTIVE dont expiresAt est dépassé
@@ -19,16 +16,17 @@ public class ReservationExpiryJob {
 
     private static final Logger log = LoggerFactory.getLogger(ReservationExpiryJob.class);
 
-    private final StockReservationRepository reservations;
+    private final InventoryService inventoryService;
 
-    public ReservationExpiryJob(StockReservationRepository reservations) {
-        this.reservations = reservations;
+    public ReservationExpiryJob(InventoryService inventoryService) {
+        this.inventoryService = inventoryService;
     }
 
     @Scheduled(fixedRate = 60_000)
     public void releaseExpiredReservations() {
-        int expired = reservations.findByStatusAndExpiresAtBefore(ReservationStatus.ACTIVE, Instant.now()).size();
-        log.debug("{} réservation(s) expirée(s) à libérer", expired);
-        // TODO Validation 2 : statut EXPIREE, quantityReserved -= q, mouvement LIBERATION (dans une transaction).
+        int released = inventoryService.releaseExpiredReservations();
+        if (released > 0) {
+            log.info("{} réservation(s) expirée(s) libérée(s)", released);
+        }
     }
 }

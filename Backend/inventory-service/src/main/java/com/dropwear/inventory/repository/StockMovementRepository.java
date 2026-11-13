@@ -13,4 +13,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.dropwear.inventory.domain.*;
 
 public interface StockMovementRepository extends JpaRepository<StockMovement, UUID> {
+
+    Page<StockMovement> findBySkuAndCreatedAtBetween(String sku, Instant from, Instant to, Pageable pageable);
+
+    Page<StockMovement> findBySku(String sku, Pageable pageable);
+
+    Page<StockMovement> findByCreatedAtBetween(Instant from, Instant to, Pageable pageable);
 }
+

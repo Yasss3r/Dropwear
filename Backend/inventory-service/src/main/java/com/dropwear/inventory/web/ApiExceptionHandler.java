@@ -2,8 +2,11 @@ package com.dropwear.inventory.web;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import com.dropwear.inventory.web.dto.InventoryDtos.ReservationConflictDto;
 
 /** Réponses d'erreur homogènes au format RFC 7807 (application/problem+json). */
 @RestControllerAdvice
@@ -21,5 +24,11 @@ public class ApiExceptionHandler {
         ProblemDetail problem = ProblemDetail.forStatusAndDetail(HttpStatus.CONFLICT, exception.getMessage());
         problem.setTitle("Conflit métier");
         return problem;
+    }
+
+    @ExceptionHandler(ReservationUnavailableException.class)
+    ResponseEntity<ReservationConflictDto> handleReservationUnavailable(ReservationUnavailableException exception) {
+        return ResponseEntity.status(HttpStatus.CONFLICT)
+                .body(new ReservationConflictDto(exception.getUnavailableSkus()));
     }
 }
