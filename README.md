@@ -22,12 +22,12 @@ Acteurs : **Administrateur**, **Fournisseur**, **E-commerçant**, **Agent de con
 
 |Membre|Microservice|Rôle transverse|
 |--|--|--|
-|Membre 1|Product & Stock Service (M1)|Catalogue B2B, variantes, réservation de stock|
-|Membre 2|Integration Service (M2)|Webhooks, synchronisation boutiques, import commandes|
-|Membre 3|Order & Call Center Service (M3)|File d’appels, qualification client, confirmation commande|
-|Membre 4|Logistics & Fulfillment Service (M4)|Collecte, emballage, bordereaux, expédition|
-|Membre 5|Transaction & Wallet Service (M5)|Commissions, répartition COD, portefeuilles, virements|
-|Membre 6|Exchange Service (M6)|Retours, inspections, échanges et réexpédition|
+|Yasser Chebbi|Product & Stock Service (M1)|Catalogue B2B, variantes, réservation de stock|
+|Youssef jaouani|Integration Service (M2)|Webhooks, synchronisation boutiques, import commandes|
+|Hussain bouaziz|Order & Call Center Service (M3)|File d’appels, qualification client, confirmation commande|
+|Eya frikha|Logistics & Fulfillment Service (M4)|Collecte, emballage, bordereaux, expédition|
+|Aziz aarfewi|Transaction & Wallet Service (M5)|Commissions, répartition COD, portefeuilles, virements|
+|Med ben lakhel|Exchange Service (M6)|Retours, inspections, échanges et réexpédition|
 |**Toute l’équipe**|**Support & Logging Service (M7)**|Identity & Access Management, support Ads, journalisation RabbitMQ|
 
 ## 3. Architecture
