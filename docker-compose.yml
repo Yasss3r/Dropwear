@@ -260,6 +260,7 @@ services:
   inventory-service:
     build: ./Backend/inventory-service
     profiles: [all]
+    ports: ["8084:8084"]
     environment:
       <<: *spring-env
       DB_URL: jdbc:postgresql://inventory-db:5432/inventory_db
