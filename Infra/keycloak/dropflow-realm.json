@@ -1,0 +1,233 @@
+{
+  "id": "dropflow",
+  "realm": "dropflow",
+  "displayName": "DropFlow Hub",
+  "displayNameHtml": "<b>DropFlow</b> Hub",
+  "enabled": true,
+  "sslRequired": "none",
+  "registrationAllowed": false,
+  "loginWithEmailAllowed": true,
+  "duplicateEmailsAllowed": false,
+  "resetPasswordAllowed": true,
+  "editUsernameAllowed": false,
+  "accessTokenLifespan": 300,
+  "ssoSessionIdleTimeout": 1800,
+  "ssoSessionMaxLifespan": 36000,
+  "roles": {
+    "realm": [
+      {
+        "name": "ADMIN",
+        "description": "Administrateur de la plateforme DropFlow"
+      },
+      {
+        "name": "ECOMMERCANT",
+        "description": "E-commerçant gérant ses boutiques et commandes"
+      },
+      {
+        "name": "FOURNISSEUR",
+        "description": "Fournisseur gérant ses stocks et expéditions"
+      },
+      {
+        "name": "AGENT_CONFIRMATION",
+        "description": "Agent chargé de la confirmation des commandes"
+      },
+      {
+        "name": "AGENT_LOGISTIQUE",
+        "description": "Agent chargé des opérations d'expédition et d'entrepôt"
+      },
+      {
+        "name": "AGENT_FINANCIER",
+        "description": "Agent financier gérant les factures et règlements"
+      },
+      {
+        "name": "AGENT_SUPPORT",
+        "description": "Agent de support client et gestion des litiges"
+      }
+    ]
+  },
+  "defaultDefaultClientScopes": [
+    "role_list",
+    "profile",
+    "email",
+    "roles",
+    "web-origins",
+    "acr"
+  ],
+  "clients": [
+    {
+      "id": "dropflow-web-client",
+      "clientId": "dropflow-web",
+      "name": "DropFlow Web App",
+      "description": "Next.js Frontend Client (Confidential, Authorization Code Flow)",
+      "enabled": true,
+      "clientAuthenticatorType": "client-secret",
+      "secret": "dropflow-web-secret-key-2026",
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": true,
+      "serviceAccountsEnabled": false,
+      "publicClient": false,
+      "protocol": "openid-connect",
+      "rootUrl": "http://localhost:3000",
+      "baseUrl": "http://localhost:3000",
+      "redirectUris": [
+        "http://localhost:3000/*",
+        "http://localhost:3000/api/auth/callback/keycloak"
+      ],
+      "webOrigins": [
+        "http://localhost:3000",
+        "+"
+      ],
+      "attributes": {
+        "post.logout.redirect.uris": "http://localhost:3000##http://localhost:3000/*",
+        "backchannel.logout.session.required": "true",
+        "backchannel.logout.revoke.offline.tokens": "false",
+        "pkce.code.challenge.method": "S256"
+      },
+      "protocolMappers": [
+        {
+          "name": "realm-roles-mapper",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-realm-role-mapper",
+          "consentRequired": false,
+          "config": {
+            "multivalued": "true",
+            "userinfo.token.claim": "true",
+            "id.token.claim": "true",
+            "access.token.claim": "true",
+            "claim.name": "realm_access.roles",
+            "jsonType.label": "String"
+          }
+        },
+        {
+          "name": "roles-claim-mapper",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-realm-role-mapper",
+          "consentRequired": false,
+          "config": {
+            "multivalued": "true",
+            "userinfo.token.claim": "true",
+            "id.token.claim": "true",
+            "access.token.claim": "true",
+            "claim.name": "roles",
+            "jsonType.label": "String"
+          }
+        }
+      ]
+    }
+  ],
+  "users": [
+    {
+      "username": "admin@dropflow.com",
+      "email": "admin@dropflow.com",
+      "firstName": "Alexandre",
+      "lastName": "Admin",
+      "enabled": true,
+      "emailVerified": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "admin123",
+          "temporary": false
+        }
+      ],
+      "realmRoles": ["ADMIN"]
+    },
+    {
+      "username": "ecom@dropflow.com",
+      "email": "ecom@dropflow.com",
+      "firstName": "Émilie",
+      "lastName": "Commerçante",
+      "enabled": true,
+      "emailVerified": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "ecom123",
+          "temporary": false
+        }
+      ],
+      "realmRoles": ["ECOMMERCANT"]
+    },
+    {
+      "username": "fournisseur@dropflow.com",
+      "email": "fournisseur@dropflow.com",
+      "firstName": "Fabrice",
+      "lastName": "Fournisseur",
+      "enabled": true,
+      "emailVerified": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "fournisseur123",
+          "temporary": false
+        }
+      ],
+      "realmRoles": ["FOURNISSEUR"]
+    },
+    {
+      "username": "confirmation@dropflow.com",
+      "email": "confirmation@dropflow.com",
+      "firstName": "Camille",
+      "lastName": "Confirmation",
+      "enabled": true,
+      "emailVerified": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "confirm123",
+          "temporary": false
+        }
+      ],
+      "realmRoles": ["AGENT_CONFIRMATION"]
+    },
+    {
+      "username": "logistique@dropflow.com",
+      "email": "logistique@dropflow.com",
+      "firstName": "Lucas",
+      "lastName": "Logistique",
+      "enabled": true,
+      "emailVerified": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "logistics123",
+          "temporary": false
+        }
+      ],
+      "realmRoles": ["AGENT_LOGISTIQUE"]
+    },
+    {
+      "username": "financier@dropflow.com",
+      "email": "financier@dropflow.com",
+      "firstName": "Florence",
+      "lastName": "Financière",
+      "enabled": true,
+      "emailVerified": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "finance123",
+          "temporary": false
+        }
+      ],
+      "realmRoles": ["AGENT_FINANCIER"]
+    },
+    {
+      "username": "support@dropflow.com",
+      "email": "support@dropflow.com",
+      "firstName": "Samir",
+      "lastName": "Support",
+      "enabled": true,
+      "emailVerified": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "support123",
+          "temporary": false
+        }
+      ],
+      "realmRoles": ["AGENT_SUPPORT"]
+    }
+  ]
+}
