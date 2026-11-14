@@ -22,6 +22,8 @@ Acteurs : **Administrateur**, **Fournisseur**, **E-commerçant**, **Agent de con
 
 |Membre|Microservice|Rôle transverse|
 |--|--|--|
+|Membre|Microservice|Rôle transverse|
+|--|--|--|
 |Yasser Chebbi|Product & Stock Service (M1)|Catalogue B2B, variantes, réservation de stock|
 |Youssef jaouani|Integration Service (M2)|Webhooks, synchronisation boutiques, import commandes|
 |Hussain bouaziz|Order & Call Center Service (M3)|File d’appels, qualification client, confirmation commande|

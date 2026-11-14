@@ -1,0 +1,20 @@
+services:
+  keycloak:
+    image: keycloak/keycloak:26.0.7
+    container_name: dropflow-keycloak
+    command: ["start-dev", "--import-realm"]
+    environment:
+      KC_BOOTSTRAP_ADMIN_USERNAME: ${KEYCLOAK_ADMIN:-admin}
+      KC_BOOTSTRAP_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD:-admin}
+      KC_HOSTNAME: http://localhost:8081
+      KC_HTTP_ENABLED: "true"
+      KC_HEALTH_ENABLED: "true"
+    ports:
+      - "${KEYCLOAK_PORT:-8081}:8080"
+    volumes:
+      - ./dropflow-realm.json:/opt/keycloak/data/import/dropflow-realm.json:ro
+      - dropflow-keycloak-data:/opt/keycloak/data
+    restart: unless-stopped
+
+volumes:
+  dropflow-keycloak-data:
