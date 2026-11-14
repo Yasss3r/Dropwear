@@ -1,0 +1,35 @@
+server:
+  port: 8084
+
+spring:
+  config:
+    import: ""   # Désactive l'appel au Config Server
+  cloud:
+    config:
+      enabled: false
+  datasource:
+    url: jdbc:postgresql://localhost:5435/inventory_db
+    username: dropwear
+    password: dropwear
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          # Clé factice ou désactivation pour tests locaux directs
+          jwk-set-uri: http://localhost:8180/realms/dropwear/protocol/openid-connect/certs
+  kafka:
+    bootstrap-servers: localhost:9092
+    listener:
+      auto-startup: false  # Ne plante pas si Kafka n'est pas encore lancé !
+
+eureka:
+  client:
+    enabled: false  # Ne plante pas si Eureka n'est pas encore lancé !
+
+dropwear:
+  stock:
+    default-reorder-threshold: 5
